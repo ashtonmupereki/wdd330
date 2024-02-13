@@ -7,6 +7,21 @@
   <title>Personal Finance Tracker App</title>
 </head>
 <body>
+  <header>
+    <div class="menu-icon">
+      <div class="menu-icon-bar"></div>
+      <div class="menu-icon-bar"></div>
+      <div class="menu-icon-bar"></div>
+    </div>
+    <nav class="navigation-menu">
+      <ul>
+        <li><a href="#incomeForm">Income</a></li>
+        <li><a href="#balance">Balance</a></li>
+        <li><a href="#expense-list">Expenses</a></li>
+        <li><a href="#loginForm">Login</a></li>
+      </ul>
+    </nav>
+  </header>
   <div class="wrapper">
     <form id="loginForm" action="">
         <h1>Login</h1>
@@ -29,6 +44,18 @@
     </form>
     <div id="loggedInMessage" class="hide">
         <h2>👤: <span id="usernameDisplay"></span>!</h2>
+    </div>
+    <form id="incomeForm">
+     
+      <div class="input-inbox">
+        <input type="number" id="incomeInput" placeholder="Enter your income" required>
+        <i class='bx bxs-dollar-circle'></i>
+      </div>
+      <button type="submit" class="btn">Submit</button>
+    </form>
+    <div id="balance">
+      <h2>Total Income</h2>
+      <p id="balanceAmount"></p>
     </div>
 </div>
   <h1>Personal Finance Tracker App</h1>
@@ -64,7 +91,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <td>Total:</td>
+          <td>Total Expenses Amnt:</td>
           <td id="total-amount"></td>
           <td></td>
           <td></td>

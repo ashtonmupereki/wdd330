@@ -165,3 +165,51 @@ tfoot td {
 .register-link p a:hover {
   text-decoration: underline;
 }
+
+.navigation-menu {
+  display: none;
+}
+
+.menu-icon {
+  display: none;
+}
+
+.menu-icon-bar {
+  width: 100%;
+  height: 2px;
+  background-color: #333;
+  margin-bottom: 4px;
+}
+
+@media (max-width: 768px) {
+  .menu-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+  }
+
+  .menu-icon-bar {
+    width: 100%;
+    height: 2px;
+    background-color: #333;
+    margin-bottom: 4px;
+  }
+
+  .show {
+    display: block;
+  }
+
+  #loginForm,
+  #incomeForm {
+    display: none;
+  }
+
+  .show #loginForm,
+  .show #incomeForm {
+    display: block;
+  }
+}

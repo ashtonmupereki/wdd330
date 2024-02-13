@@ -98,3 +98,93 @@ window.addEventListener('DOMContentLoaded', (event) => {
       loggedInMessage.style.display = 'block';
     });
   });
+
+  // Initialize income and expense arrays
+let incomeData = [];
+let expenseData = [];
+
+// Load data from localStorage (if available)
+if (localStorage.getItem('incomeData')) {
+  incomeData = JSON.parse(localStorage.getItem('incomeData'));
+}
+
+if (localStorage.getItem('expenseData')) {
+  expenseData = JSON.parse(localStorage.getItem('expenseData'));
+}
+
+// Get references to HTML elements
+const incomeForm = document.getElementById('incomeForm');
+const incomeInput = document.getElementById('incomeInput');
+const balanceAmount = document.getElementById('balanceAmount');
+
+// Add event listener for income form submission
+incomeForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  // Get the entered income value
+  const income = parseFloat(incomeInput.value);
+
+  // Save the income to the income array
+  incomeData.push(income);
+
+  // Save the incomeData array to localStorage
+  localStorage.setItem('incomeData', JSON.stringify(incomeData));
+
+  // Display the income
+  balanceAmount.textContent = `$${income}`;
+
+  // Reset the income input field
+  incomeInput.value = '';
+
+  // Show the balance element
+  balance.style.display = 'block';
+
+  // Calculate and display the balance
+  calculateBalance();
+});
+
+// Calculate and display the balance
+function calculateBalance() {
+  const expenseTable = document.getElementById('expense-table-body');
+  const totalAmount = document.getElementById('total-amount');
+
+  let totalExpense = 0;
+
+  // Loop through each row in the expense table
+  for (let i = 0; i < expenseTable.rows.length; i++) {
+    const expenseAmount = parseFloat(expenseTable.rows[i].cells[1].textContent);
+    totalExpense += expenseAmount;
+  }
+
+  // Calculate the balance
+  const income = incomeData.reduce((total, income) => total + income, 0);
+  const balance = income - totalExpense;
+
+  // Display the balance
+  balanceAmount.textContent = `US$${balance.toFixed(2)}`;
+}
+
+// Add event listener for expense form submission
+expenseForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  // Your existing code to add the expense
+
+  // Save the expenseData array to localStorage
+  localStorage.setItem('expenseData', JSON.stringify(expenseData));
+
+  // Calculate and display the balance
+  calculateBalance();
+});
+
+// Call the calculateBalance function initially to hide the balance element
+calculateBalance();
+
+// Get references to the menu icon and navigation menu
+const menuIcon = document.querySelector('.menu-icon');
+const navigationMenu = document.querySelector('.navigation-menu');
+
+// Add event listener to toggle the visibility of the navigation menu
+menuIcon.addEventListener('click', () => {
+  navigationMenu.classList.toggle('show');
+});
