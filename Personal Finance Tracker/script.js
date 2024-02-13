@@ -82,12 +82,19 @@ categoryCell.textContent = expense.category;
     deleteCell.appendChild(deleteBtn);
 }
 
-// Get the modal
-var modal = document.getElementById('id01');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+window.addEventListener('DOMContentLoaded', (event) => {
+    const loginForm = document.getElementById('loginForm');
+    const usernameInput = document.getElementById('usernameInput');
+    const loggedInMessage = document.getElementById('loggedInMessage');
+    const usernameDisplay = document.getElementById('usernameDisplay');
+  
+    loginForm.addEventListener('submit', (event) => {
+      event.preventDefault(); // Prevents the form from submitting and refreshing the page
+  
+      const username = usernameInput.value;
+      usernameDisplay.textContent = username;
+  
+      loginForm.style.display = 'none';
+      loggedInMessage.style.display = 'block';
+    });
+  });
