@@ -1,51 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="lee.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="lee.css">
+  <title>Personal Finance Tracker App</title>
+  <style>
+    .login-form {
+      max-width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f2f2f2;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .login-form input[type="text"],
+    .login-form input[type="password"],
+    .login-form button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .login-form button {
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+
+    .login-form button:hover {
+      background: #45a049;
+    }
+
+    .message {
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
 </head>
+<header>
+  <div class="login-form">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button id="login-btn">Login</button>
+    <div class="message" id="message"></div>
+  </div>
+</header>
 <body>
-    <div class="wrapper">
-        <form id="loginForm" action="">
-            <h1>Login</h1>
-            <div class="input-inbox">
-                <input type="text" id="usernameInput" placeholder="Username" required>
-                <i class='bx bxs-lock-alt'></i>
-            </div>
-            <div class="input-inbox">
-                <input type="password" id="passwordInput" placeholder="Password" required>
-                <i class='bx bxs-lock-alt'></i>
-            </div>
-            <div class="remember-forgot">
-                <label><input type="checkbox">Remember me</label>
-                <a href="#">Forgot Password?</a>
-            </div>
-            <button type="submit" class="btn">Login</button>
-            <div class="register-link">
-                <p>Don't have an account?<a href="#">Register</a></p>
-            </div>
-        </form>
-        <div id="loggedInMessage" class="hide">
-            <h2>Welcome, <span id="usernameDisplay"></span>!</h2>
-        </div>
-    </div>
-    <script>
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent form submission
+  <h1>Personal Finance Tracker</h1>
+  <div class="input-section">
+    <label for="category-select">Category</label>
+    <select id="category-select">
+      <option value="Tithing">Tithing</option>
+      <option value="Groceries">Groceries</option>
+      <option value="Transport">Transport</option>
+      <option value="Refreshments">Refreshments</option>
+      <option value="Rent">Rent</option>
+      <option value="Tuition">Tuition</option>
+    </select>
+    <label for="amount-input">Amount</label>
+    <input type="number" id="amount-input">
+    <label for="date-input">Date</label>
+    <input type="date" id="date-input">
+    <button id="add-btn">Add</button>
+  </div>
+  <div class="expense-list">
+    <h2>Expenses List</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody id="expense-table-body">
 
-            // Get the entered username
-            var username = document.getElementById("usernameInput").value;
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Total</td>
+          <td id="total-amount"></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <h1>Income and Expenses</h1>
+  <form id="incomeForm">
+    <label for="incomeInput">Income:</label>
+    <input type="number" id="incomeInput" step="0.01" required>
+    <button type="submit">Add Income</button>
+  </form>
+  <form id="expenseForm">
+    <label for="expenseInput">Calculated Total Expenses:</label>
+    <input type="number" id="expenseInput" step="0.01" required>
+    <button type="submit">Add Expense</button>
+  </form>
+  <h2>Balance: <span id="balanceAmount">$0.00</span></h2>
+  <div class="chart-container">
+    <canvas id="pieChart"></canvas>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="lee.js"></script>
+  <script>
+    document.getElementById('login-btn').addEventListener('click', function(event) {
+  event.preventDefault();
 
-            // Hide the login form
-            document.getElementById("loginForm").classList.add("hide");
+  var username = document.getElementById('username').value;
+  var password = document.getElementById('password').value;
+  var message = document.getElementById('message');
 
-            // Show the welcome message with the username
-            document.getElementById("loggedInMessage").classList.remove("hide");
-            document.getElementById("usernameDisplay").textContent = username;
-        });
-    </script>
-    
+  var nameRegex = /^[a-zA-Z\s]+$/;
+  var passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{6,}$/;
+
+  if (nameRegex.test(username) && passwordRegex.test(password)) {
+    message.textContent = 'Welcome, ' + username + '!';
+    document.querySelector('.login-form').style.display = 'none';
+    message.style.display = 'block';
+  } else {
+    message.textContent = 'Invalid username or password.';
+    message.style.display = 'block';
+  }
+});
+  </script>
 </body>
 </html>
